@@ -1,0 +1,1257 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>وكالة العالم - Group Leader</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Tajawal',sans-serif}
+:root{--pr:#F26522;--pr2:#e55a10;--ok:#059669;--bad:#dc2626;--warn:#d97706;--bg:#f0f4f8;--white:#fff;--border:rgba(242,101,34,0.15);--gray:#64748b;--light:#fff3ed;--dark:#c44d0a}
+body{background:var(--bg);color:#1a1a1a;min-height:100vh}
+
+/* LOGIN */
+.login-page{min-height:100vh;background:linear-gradient(135deg,#c44d0a,#F26522,#ff7a35);display:flex;align-items:center;justify-content:center;padding:20px}
+.login-box{background:#fff;border-radius:20px;padding:28px 24px;width:100%;max-width:380px;box-shadow:0 20px 60px rgba(0,0,0,.2)}
+.login-logo{text-align:center;margin-bottom:20px}
+.login-logo-img{width:80px;height:80px;border-radius:50%;object-fit:cover;border:3px solid var(--pr)}
+.login-title{font-size:20px;font-weight:800;color:var(--pr);text-align:center;margin-bottom:4px}
+.login-sub{font-size:12px;color:var(--gray);text-align:center;margin-bottom:20px}
+.login-inp{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;font-family:inherit;margin-bottom:10px;background:#fafafa}
+.login-inp:focus{outline:none;border-color:var(--pr)}
+.login-btn{width:100%;padding:13px;background:var(--pr);color:#fff;border:none;border-radius:12px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s}
+.login-btn:hover{background:var(--pr2)}
+.login-hint{background:#fff3ed;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:11px;color:var(--gray)}
+.login-hint b{color:var(--pr)}
+
+/* APP */
+.app{display:none;min-height:100vh;flex-direction:column}
+.app.show{display:flex}
+
+/* HEADER */
+.hdr{background:linear-gradient(135deg,#c44d0a,#F26522);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;color:#fff;position:sticky;top:0;z-index:50}
+.hdr-logo{display:flex;align-items:center;gap:10px}
+.logo-img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)}
+.hdr-t{font-size:14px;font-weight:800}
+.hdr-s{font-size:11px;opacity:.8}
+.hdr-right{display:flex;align-items:center;gap:8px}
+.trip-pill{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:5px 12px;font-size:11px;font-weight:600;cursor:pointer;max-width:140px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.logout-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.15);border:none;color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px}
+
+/* LAYOUT */
+.layout{display:flex;flex:1}
+.sidebar{width:190px;background:var(--white);border-left:1px solid var(--border);padding:10px 0;flex-shrink:0;position:sticky;top:58px;height:calc(100vh - 58px);overflow-y:auto}
+.main{flex:1;padding:14px;padding-bottom:80px;overflow-y:auto}
+.nav-sec{font-size:10px;color:var(--gray);font-weight:700;padding:8px 12px 3px;margin-top:4px}
+.nav-lnk{display:flex;align-items:center;gap:8px;padding:9px 12px;cursor:pointer;font-size:13px;font-weight:500;color:var(--gray);transition:all .15s;border-right:3px solid transparent}
+.nav-lnk:hover{background:var(--light);color:var(--pr)}
+.nav-lnk.active{background:var(--light);color:var(--pr);border-right-color:var(--pr);font-weight:700}
+.nav-lnk i{font-size:17px}
+
+/* PANELS */
+.panel{display:none}
+.panel.active{display:block}
+
+/* CARDS */
+.sec{background:var(--white);border-radius:12px;padding:14px;margin-bottom:12px;border:1px solid var(--border)}
+.sec-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.sec-t{font-size:14px;font-weight:700;color:#1a1a1a}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.stat{background:var(--white);border-radius:12px;padding:12px;border:1px solid var(--border);text-align:center}
+.stat-i{font-size:22px;margin-bottom:4px}
+.stat-v{font-size:20px;font-weight:800;color:var(--pr)}
+.stat-l{font-size:10px;color:var(--gray)}
+.stat.ok .stat-v{color:var(--ok)}
+.stat.bad .stat-v{color:var(--bad)}
+.stat.warn .stat-v{color:var(--warn)}
+
+/* BUTTONS */
+.btn{padding:7px 14px;border:none;border-radius:9px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;transition:all .15s;display:inline-flex;align-items:center;gap:5px}
+.btn:active{transform:scale(.97)}
+.btn-pr{background:var(--pr);color:#fff}
+.btn-pr:hover{background:var(--pr2)}
+.btn-ok{background:var(--ok);color:#fff}
+.btn-bad{background:var(--bad);color:#fff}
+.btn-light{background:var(--light);color:var(--pr)}
+.btn-sm{padding:5px 10px;font-size:11px}
+.btn-full{width:100%;padding:13px;font-size:14px;justify-content:center}
+
+/* FORMS */
+.form-row{margin-bottom:10px}
+.form-lbl{font-size:12px;font-weight:600;color:#1a1a1a;margin-bottom:4px;display:block}
+.form-inp{width:100%;padding:9px 12px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;background:#fff}
+.form-inp:focus{outline:none;border-color:var(--pr)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+/* TABLE */
+.tbl{width:100%;border-collapse:collapse}
+.tbl th{text-align:right;font-size:11px;color:var(--gray);font-weight:700;padding:7px 8px;border-bottom:1px solid var(--border)}
+.tbl td{padding:9px 8px;font-size:12px;border-bottom:1px solid var(--border);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:none}
+.tbl tr:hover td{background:#fafafa}
+
+/* BADGES */
+.badge{padding:3px 8px;border-radius:20px;font-size:11px;font-weight:600}
+.b-ok{background:#d1fae5;color:var(--ok)}
+.b-bad{background:#fee2e2;color:var(--bad)}
+.b-warn{background:#fef3c7;color:var(--warn)}
+.b-blue{background:#dbeafe;color:#1d4ed8}
+.b-pink{background:#fce7f3;color:#be185d}
+.b-orange{background:#fff3ed;color:var(--pr)}
+
+/* MODAL */
+.modal-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;align-items:center;justify-content:center;padding:16px}
+.modal-ov.open{display:flex}
+.modal{background:#fff;border-radius:16px;padding:20px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto}
+.modal-t{font-size:15px;font-weight:700;margin-bottom:14px}
+.modal-btns{display:flex;gap:8px;margin-top:12px}
+
+/* TRIP HERO */
+.trip-hero{background:linear-gradient(135deg,#c44d0a,#F26522);border-radius:14px;padding:18px;color:#fff;margin-bottom:14px;position:relative;overflow:hidden}
+.trip-hero::before{content:'';position:absolute;top:-30px;right:-30px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+.trip-dest{font-size:26px;font-weight:900;margin-bottom:3px}
+.trip-date{font-size:12px;opacity:.85;margin-bottom:12px}
+.trip-tags{display:flex;gap:7px;flex-wrap:wrap}
+.trip-tag{padding:5px 12px;border-radius:20px;font-size:11px;font-weight:600;background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.25)}
+.trip-tag.gold{background:rgba(255,255,255,.9);color:var(--pr)}
+
+/* TRAVELER */
+.trav-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.trav-row:last-child{border-bottom:none}
+.trav-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;flex-shrink:0}
+.av-m{background:#dbeafe;color:#1d4ed8}
+.av-f{background:#fce7f3;color:#be185d}
+.trav-name{font-size:13px;font-weight:600}
+.trav-det{font-size:11px;color:var(--gray)}
+
+/* MESSAGES */
+.msg-card{background:var(--light);border-radius:12px;padding:12px;margin-bottom:10px;border:1.5px solid transparent;transition:all .15s}
+.msg-card:hover{border-color:var(--pr)}
+.msg-title{font-size:13px;font-weight:700;margin-bottom:4px;color:var(--pr)}
+.msg-text{font-size:12px;color:#374151;line-height:1.7;white-space:pre-wrap}
+.msg-btns{display:flex;gap:6px;margin-top:8px}
+
+/* SCHEDULE */
+.day-card{background:var(--white);border:1px solid var(--border);border-radius:12px;margin-bottom:10px;overflow:hidden}
+.day-hdr{background:var(--pr);color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between}
+.day-body{padding:12px}
+.sched-item{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--border);align-items:flex-start}
+.sched-item:last-child{border-bottom:none}
+.sched-time{font-size:11px;color:var(--gray);min-width:48px;font-weight:600}
+.sched-dot{width:10px;height:10px;border-radius:50%;margin-top:4px;flex-shrink:0}
+.dot-t{background:var(--pr)}
+.dot-m{background:var(--ok)}
+.dot-tr{background:#3b82f6}
+.dot-f{background:var(--gray)}
+.sched-main{font-size:13px;font-weight:500}
+.sched-sub{font-size:11px;color:var(--gray)}
+
+/* CURRENCY */
+.curr-card{background:linear-gradient(135deg,#c44d0a,#F26522);border-radius:14px;padding:16px;color:#fff;margin-bottom:14px}
+.curr-inp{background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:10px;padding:10px 14px;color:#fff;font-size:18px;font-weight:700;width:100%;font-family:inherit;margin-bottom:10px}
+.curr-inp::placeholder{color:rgba(255,255,255,.5)}
+.curr-inp:focus{outline:none;background:rgba(255,255,255,.25)}
+.curr-btns{display:flex;gap:6px;flex-wrap:wrap}
+.curr-btn{padding:6px 12px;border-radius:20px;border:none;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+.curr-btn.active{background:rgba(255,255,255,.9);color:var(--pr)}
+.curr-btn:not(.active){background:rgba(255,255,255,.15);color:#fff}
+.curr-result-box{text-align:center;padding:16px}
+.curr-result{font-size:32px;font-weight:900;color:var(--pr)}
+
+/* EXPENSE */
+.exp-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
+.exp-row:last-child{border-bottom:none}
+.exp-del{padding:4px 8px;background:#fee2e2;color:var(--bad);border:none;border-radius:6px;font-size:11px;cursor:pointer;font-family:inherit}
+
+/* CHECKLIST */
+.check-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.check-item:last-child{border-bottom:none}
+.check-cb{width:20px;height:20px;border-radius:6px;border:2px solid var(--border);cursor:pointer;flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.check-cb.done{background:var(--ok);border-color:var(--ok);color:#fff;font-size:12px}
+.check-text{font-size:13px;flex:1}
+.check-text.done{text-decoration:line-through;color:var(--gray)}
+
+/* NUMBERS */
+.num-card{display:flex;align-items:center;gap:10px;padding:10px;background:var(--white);border:1px solid var(--border);border-radius:10px;margin-bottom:8px}
+.num-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.num-call{margin-right:auto;padding:6px 12px;background:var(--ok);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit}
+
+/* REPORT */
+.report-ta{width:100%;padding:10px;border:1.5px solid var(--border);border-radius:9px;font-size:13px;font-family:inherit;resize:none;background:#fff;margin-bottom:8px}
+.report-ta:focus{outline:none;border-color:var(--pr)}
+
+/* TOAST */
+.toast{display:none;position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--ok);color:#fff;padding:10px 20px;border-radius:12px;font-size:13px;font-weight:600;z-index:999;white-space:nowrap}
+.toast.show{display:block;animation:ta 2.8s forwards}
+@keyframes ta{0%{opacity:0;transform:translateX(-50%) translateY(8px)}15%{opacity:1;transform:translateX(-50%) translateY(0)}80%{opacity:1}100%{opacity:0}}
+
+/* EMPTY STATE */
+.empty{text-align:center;padding:30px 20px;color:var(--gray)}
+.empty-icon{font-size:40px;margin-bottom:8px}
+.empty-t{font-size:14px;font-weight:600;margin-bottom:4px}
+.empty-s{font-size:12px}
+
+/* PASSPORT ALERT */
+.pass-alert{padding:10px 12px;border-radius:10px;margin-bottom:8px;display:flex;align-items:center;gap:8px;font-size:12px}
+.pass-red{background:#fee2e2;border:1px solid #fca5a5;color:var(--bad)}
+.pass-yellow{background:#fef3c7;border:1px solid #fde68a;color:var(--warn)}
+
+/* MOBILE */
+@media(max-width:700px){
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .sidebar{display:none}
+  .mob-nav{display:flex!important}
+  .form-grid{grid-template-columns:1fr}
+}
+.mob-nav{display:none;background:var(--white);border-top:1px solid var(--border);position:fixed;bottom:0;left:0;right:0;z-index:100;padding:5px 6px 8px;gap:3px}
+.mn-i{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 2px;border:none;background:none;cursor:pointer;border-radius:9px}
+.mn-i i{font-size:19px;color:var(--gray)}
+.mn-i span{font-size:9px;color:var(--gray);font-weight:500}
+.mn-i.active{background:var(--light)}
+.mn-i.active i,.mn-i.active span{color:var(--pr)}
+</style>
+</head>
+<body>
+<div class="toast" id="toast"></div>
+
+<!-- ===== LOGIN PAGE ===== -->
+<div class="login-page" id="login-page">
+  <div class="login-box">
+    <div class="login-logo">
+      <div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#c44d0a,#F26522);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:32px">✈️</div>
+      <div class="login-title">وكالة العالم للسفر</div>
+      <div class="login-sub">Group Leader Portal</div>
+    </div>
+    <input class="login-inp" id="login-user" placeholder="اسم المستخدم" type="text">
+    <input class="login-inp" id="login-pass" placeholder="كلمة المرور" type="password">
+    <div id="login-err" style="color:var(--bad);font-size:12px;text-align:center;margin-bottom:8px;display:none">❌ كلمة المرور غير صحيحة</div>
+    <button class="login-btn" onclick="doLogin()">دخول ←</button>
+    <div class="login-hint" style="background:#fff3ed;border-radius:10px;padding:10px 12px;margin-top:12px;font-size:11px;color:var(--gray)">
+      🔑 كلمة المرور الموحدة: <b style="color:var(--pr)">alam2026</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== ADMIN PANEL ===== -->
+<div id="admin-panel" style="display:none;flex-direction:column;min-height:100vh;background:#f0f4f8">
+  <!-- Admin Header -->
+  <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;color:#fff;position:sticky;top:0;z-index:50">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div style="width:38px;height:38px;border-radius:10px;background:#F26522;display:flex;align-items:center;justify-content:center;font-size:18px">👑</div>
+      <div>
+        <div style="font-size:15px;font-weight:800">لوحة المدير</div>
+        <div style="font-size:11px;opacity:.7">وكالة العالم · إحصائيات الليدرز</div>
+      </div>
+    </div>
+    <button onclick="adminLogout()" style="padding:7px 14px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🚪 خروج</button>
+  </div>
+
+  <div style="padding:16px" id="admin-content"></div>
+</div>
+
+<!-- ===== APP ===== -->
+<div class="app" id="app">
+
+<!-- MODALS -->
+<div class="modal-ov" id="modal-trip">
+  <div class="modal">
+    <div class="modal-t">✈️ معلومات الرحلة</div>
+    <div class="form-row"><label class="form-lbl">الوجهة *</label><input class="form-inp" id="tr-dest" placeholder="إسطنبول، تركيا"></div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">تاريخ السفر *</label><input class="form-inp" type="date" id="tr-dep"></div>
+      <div class="form-row"><label class="form-lbl">تاريخ العودة *</label><input class="form-inp" type="date" id="tr-ret"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">رقم الرحلة</label><input class="form-inp" id="tr-flight" placeholder="TK142"></div>
+      <div class="form-row"><label class="form-lbl">البوابة</label><input class="form-inp" id="tr-gate" placeholder="B12"></div>
+    </div>
+    <div class="form-row"><label class="form-lbl">اسم الفندق</label><input class="form-inp" id="tr-hotel" placeholder="Hilton Istanbul"></div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">واي فاي الفندق</label><input class="form-inp" id="tr-wifi" placeholder="Hotel_Guest"></div>
+      <div class="form-row"><label class="form-lbl">كلمة المرور</label><input class="form-inp" id="tr-wifipass" placeholder="Pass123"></div>
+    </div>
+    <div class="form-row"><label class="form-lbl">اسم المرشد</label><input class="form-inp" id="tr-guide" placeholder="أحمد يلماظ"></div>
+    <div class="form-row"><label class="form-lbl">رقم المرشد</label><input class="form-inp" id="tr-guidephone" placeholder="+90..."></div>
+    <div class="form-row"><label class="form-lbl">عدد المسافرين</label><input class="form-inp" type="number" id="tr-count" placeholder="20"></div>
+    <div class="modal-btns">
+      <button class="btn btn-pr" style="flex:1" onclick="saveTrip()">💾 حفظ</button>
+      <button class="btn btn-light" onclick="closeModal('modal-trip')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-traveler">
+  <div class="modal">
+    <div class="modal-t" id="trav-modal-title">👤 إضافة مسافر</div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">الاسم *</label><input class="form-inp" id="tv-name" placeholder="محمد علي"></div>
+      <div class="form-row"><label class="form-lbl">الجنس</label><select class="form-inp" id="tv-gender"><option value="m">ذكر</option><option value="f">أنثى</option></select></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">رقم الجوال</label><input class="form-inp" id="tv-phone" placeholder="+966..."></div>
+      <div class="form-row"><label class="form-lbl">رقم الجواز</label><input class="form-inp" id="tv-passport" placeholder="A1234567"></div>
+    </div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">تاريخ انتهاء الجواز</label><input class="form-inp" type="date" id="tv-expiry"></div>
+      <div class="form-row"><label class="form-lbl">رقم الغرفة</label><input class="form-inp" id="tv-room" placeholder="١٠١"></div>
+    </div>
+    <div class="form-row"><label class="form-lbl">مناسبة خاصة</label>
+      <select class="form-inp" id="tv-occasion">
+        <option value="">لا يوجد</option>
+        <option value="honeymoon">💑 شهر عسل</option>
+        <option value="birthday">🎂 عيد ميلاد</option>
+        <option value="anniversary">💍 ذكرى زواج</option>
+      </select>
+    </div>
+    <div class="form-row"><label class="form-lbl">ملاحظات</label><textarea class="form-inp" id="tv-notes" rows="2" placeholder="أي ملاحظات..."></textarea></div>
+    <div style="background:#fff0f0;border-radius:10px;padding:10px;margin-top:6px;margin-bottom:8px">
+      <div style="font-size:12px;font-weight:700;color:var(--bad);margin-bottom:8px">🏥 الحالة الصحية</div>
+      <div class="form-row"><label class="form-lbl">أمراض مزمنة</label><input class="form-inp" id="tv-disease" placeholder="مثل: ضغط، سكري، قلب..."></div>
+      <div class="form-row"><label class="form-lbl">حساسية أدوية</label><input class="form-inp" id="tv-allergy" placeholder="مثل: حساسية من البنسلين..."></div>
+      <div class="form-row"><label class="form-lbl">أدوية يأخذها</label><input class="form-inp" id="tv-meds" placeholder="مثل: أسبرين يومي..."></div>
+      <div class="form-row" style="margin-bottom:0"><label class="form-lbl">فصيلة الدم</label>
+        <select class="form-inp" id="tv-blood">
+          <option value="">غير محدد</option>
+          <option>A+</option><option>A-</option>
+          <option>B+</option><option>B-</option>
+          <option>O+</option><option>O-</option>
+          <option>AB+</option><option>AB-</option>
+        </select>
+      </div>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-pr" style="flex:1" onclick="saveTraveler()">✅ حفظ</button>
+      <button class="btn btn-light" onclick="closeModal('modal-traveler')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-expense">
+  <div class="modal">
+    <div class="modal-t">💰 إضافة مصروف</div>
+    <div class="form-row"><label class="form-lbl">الوصف *</label><input class="form-inp" id="ex-name" placeholder="غداء للمجموعة"></div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">المبلغ *</label><input class="form-inp" type="number" id="ex-amount" placeholder="0"></div>
+      <div class="form-row"><label class="form-lbl">العملة</label>
+        <select class="form-inp" id="ex-curr"><option>ريال</option><option>دولار</option><option>يورو</option><option>ليرة تركية</option><option>دينار أردني</option><option>روبل روسي</option></select>
+      </div>
+    </div>
+    <div class="form-row"><label class="form-lbl">التصنيف</label>
+      <select class="form-inp" id="ex-cat"><option>🍽️ وجبات</option><option>🚌 مواصلات</option><option>🎡 جولات</option><option>🏨 فندق</option><option>🛍️ تسوق</option><option>📦 متنوع</option></select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-pr" style="flex:1" onclick="saveExpense()">✅ إضافة</button>
+      <button class="btn btn-light" onclick="closeModal('modal-expense')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-schedule">
+  <div class="modal">
+    <div class="modal-t">📅 إضافة نشاط</div>
+    <div class="form-grid">
+      <div class="form-row"><label class="form-lbl">اليوم *</label><input class="form-inp" type="date" id="sc-date"></div>
+      <div class="form-row"><label class="form-lbl">الوقت</label><input class="form-inp" type="time" id="sc-time"></div>
+    </div>
+    <div class="form-row"><label class="form-lbl">النشاط *</label><input class="form-inp" id="sc-title" placeholder="جولة السلطان أحمد"></div>
+    <div class="form-row"><label class="form-lbl">التفاصيل</label><input class="form-inp" id="sc-detail" placeholder="مع المرشد السياحي"></div>
+    <div class="form-row"><label class="form-lbl">النوع</label>
+      <select class="form-inp" id="sc-type"><option value="tour">🗺️ جولة</option><option value="meal">🍽️ وجبة</option><option value="transport">🚌 مواصلات</option><option value="free">🕒 وقت حر</option></select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-pr" style="flex:1" onclick="saveSchedule()">✅ إضافة</button>
+      <button class="btn btn-light" onclick="closeModal('modal-schedule')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-ov" id="modal-number">
+  <div class="modal">
+    <div class="modal-t">📞 إضافة رقم مهم</div>
+    <div class="form-row"><label class="form-lbl">الاسم *</label><input class="form-inp" id="nm-name" placeholder="السفارة السعودية"></div>
+    <div class="form-row"><label class="form-lbl">الرقم *</label><input class="form-inp" id="nm-phone" placeholder="+90..."></div>
+    <div class="form-row"><label class="form-lbl">الأيقونة</label>
+      <select class="form-inp" id="nm-icon"><option>🏛️ سفارة</option><option>🏥 مستشفى</option><option>🚔 شرطة</option><option>🏨 فندق</option><option>🗺️ مرشد</option><option>🏢 وكالة</option><option>👔 رئيس</option><option>📞 أخرى</option></select>
+    </div>
+    <div class="modal-btns">
+      <button class="btn btn-pr" style="flex:1" onclick="saveNumber()">✅ إضافة</button>
+      <button class="btn btn-light" onclick="closeModal('modal-number')">إلغاء</button>
+    </div>
+  </div>
+</div>
+
+<!-- HEADER -->
+<div class="hdr">
+  <div class="hdr-logo">
+    <div style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-size:18px">✈️</div>
+    <div><div class="hdr-t">وكالة العالم</div><div class="hdr-s" id="hdr-user">Group Leader</div></div>
+  </div>
+  <div class="hdr-right">
+    <div class="trip-pill" id="trip-pill" onclick="openModal('modal-trip')">➕ أضف رحلة</div>
+    <button class="logout-btn" onclick="doLogout()" title="تسجيل الخروج">🚪</button>
+  </div>
+</div>
+
+<div class="layout">
+<div class="sidebar">
+  <div class="nav-sec">الرحلة</div>
+  <div class="nav-lnk active" onclick="showTab('overview',this)"><i class="ti ti-dashboard"></i> نظرة عامة</div>
+  <div class="nav-lnk" onclick="showTab('travelers',this)"><i class="ti ti-users"></i> المسافرون</div>
+  <div class="nav-lnk" onclick="showTab('schedule',this)"><i class="ti ti-calendar"></i> الجدول اليومي</div>
+  <div class="nav-sec">التواصل</div>
+  <div class="nav-lnk" onclick="showTab('messages',this)"><i class="ti ti-message"></i> رسائل واتساب</div>
+  <div class="nav-lnk" onclick="showTab('report',this)"><i class="ti ti-report"></i> التقرير اليومي</div>
+  <div class="nav-sec">الإدارة</div>
+  <div class="nav-lnk" onclick="showTab('hotel',this)"><i class="ti ti-building"></i> الفندق</div>
+  <div class="nav-lnk" onclick="showTab('expenses',this)"><i class="ti ti-wallet"></i> المصروفات</div>
+  <div class="nav-lnk" onclick="showTab('checklist',this)"><i class="ti ti-checkbox"></i> قائمة المهام</div>
+  <div class="nav-sec">أدوات</div>
+  <div class="nav-lnk" onclick="showTab('health',this)"><i class="ti ti-heart-rate-monitor"></i> الصحة 🏥</div>
+  <div class="nav-lnk" onclick="showTab('currency',this)"><i class="ti ti-currency"></i> حاسبة عملات</div>
+  <div class="nav-lnk" onclick="showTab('numbers',this)"><i class="ti ti-phone"></i> أرقام مهمة</div>
+</div>
+
+<div class="main">
+
+<!-- OVERVIEW -->
+<div id="tab-overview" class="panel active">
+  <div id="no-trip-msg" style="display:none" class="sec" style="text-align:center">
+    <div class="empty"><div class="empty-icon">✈️</div><div class="empty-t">لا توجد رحلة حالية</div><div class="empty-s">اضغط على "أضف رحلة" في الأعلى لإضافة رحلتك</div></div>
+    <button class="btn btn-pr" style="margin-top:10px" onclick="openModal('modal-trip')">➕ إضافة رحلة الآن</button>
+  </div>
+  <div id="trip-overview"></div>
+</div>
+
+<!-- TRAVELERS -->
+<div id="tab-travelers" class="panel">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:16px;font-weight:700">المسافرون 👥</div>
+    <button class="btn btn-pr" onclick="openAddTraveler()">➕ إضافة مسافر</button>
+  </div>
+  <input class="form-inp" style="margin-bottom:10px" placeholder="🔍 بحث بالاسم أو رقم الجواز..." oninput="filterTravelers(this.value)" id="trav-search">
+  <div class="sec" id="travelers-list"><div class="empty"><div class="empty-icon">👥</div><div class="empty-t">لا يوجد مسافرون</div><div class="empty-s">اضغط "إضافة مسافر" للبدء</div></div></div>
+</div>
+
+<!-- SCHEDULE -->
+<div id="tab-schedule" class="panel">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:16px;font-weight:700">الجدول اليومي 📅</div>
+    <button class="btn btn-pr" onclick="openModal('modal-schedule')">➕ إضافة نشاط</button>
+  </div>
+  <div id="schedule-list"><div class="empty sec"><div class="empty-icon">📅</div><div class="empty-t">لا يوجد جدول</div><div class="empty-s">ابدأ بإضافة أنشطة الرحلة</div></div></div>
+</div>
+
+<!-- MESSAGES -->
+<div id="tab-messages" class="panel">
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px">رسائل واتساب 💬</div>
+  <div class="sec" style="margin-bottom:12px">
+    <div class="sec-t" style="margin-bottom:8px">رسالة مخصصة</div>
+    <textarea class="report-ta" rows="3" id="custom-msg" placeholder="اكتب رسالتك هنا..."></textarea>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-pr" onclick="copyText('custom-msg',true)">📋 نسخ</button>
+      <button class="btn" style="background:#25D366;color:#fff" onclick="openWA('custom-msg',true)">📲 واتساب</button>
+    </div>
+  </div>
+  <div id="msg-list"></div>
+</div>
+
+<!-- REPORT -->
+<div id="tab-report" class="panel">
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px">التقرير اليومي 📝</div>
+  <div id="report-trip-info" style="background:var(--light);border-radius:10px;padding:10px 12px;margin-bottom:12px;font-size:12px;color:var(--pr)"></div>
+  <div class="sec">
+    <div style="margin-bottom:8px"><label class="form-lbl">🗺️ ملخص اليوم</label><textarea class="report-ta" rows="3" id="r-summary" placeholder="ماذا فعلتم اليوم؟ الأماكن التي زرتموها..."></textarea></div>
+    <div style="margin-bottom:8px"><label class="form-lbl">👥 حالة المسافرين</label><textarea class="report-ta" rows="2" id="r-travelers" placeholder="هل جميع المسافرين بخير؟"></textarea></div>
+    <div style="margin-bottom:8px"><label class="form-lbl">⚠️ مشاكل وشكاوى</label><textarea class="report-ta" rows="2" id="r-issues" placeholder="أي مشاكل واجهتها؟"></textarea></div>
+    <div style="margin-bottom:8px"><label class="form-lbl">🏨 ملاحظات الفندق</label><textarea class="report-ta" rows="2" id="r-hotel" placeholder="جودة الخدمة، الطعام..."></textarea></div>
+    <div style="margin-bottom:8px"><label class="form-lbl">🗺️ ملاحظات المرشد</label><textarea class="report-ta" rows="2" id="r-guide-notes" placeholder="أداء المرشد..."></textarea></div>
+    <div><label class="form-lbl">📅 برنامج الغد</label><textarea class="report-ta" rows="2" id="r-tomorrow" placeholder="ما هو برنامج الغد؟"></textarea></div>
+    <div style="display:flex;gap:8px;margin-top:4px">
+      <button class="btn btn-pr btn-full" onclick="generateReport()">📋 نسخ التقرير</button>
+      <button class="btn btn-full" style="background:#25D366;color:#fff" onclick="sendReport()">📲 واتساب</button>
+    </div>
+  </div>
+</div>
+
+<!-- HOTEL -->
+<div id="tab-hotel" class="panel">
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px">الفندق والغرف 🏨</div>
+  <div id="hotel-info" class="sec"></div>
+</div>
+
+<!-- EXPENSES -->
+<div id="tab-expenses" class="panel">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:16px;font-weight:700">المصروفات 💰</div>
+    <button class="btn btn-pr" onclick="openModal('modal-expense')">➕ إضافة</button>
+  </div>
+  <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="stat"><div class="stat-i">💵</div><div class="stat-v" id="exp-total">0</div><div class="stat-l">إجمالي (ريال)</div></div>
+    <div class="stat ok"><div class="stat-i">🍽️</div><div class="stat-v" id="exp-meals">0</div><div class="stat-l">وجبات</div></div>
+    <div class="stat warn"><div class="stat-i">🚌</div><div class="stat-v" id="exp-trans">0</div><div class="stat-l">مواصلات</div></div>
+  </div>
+  <div class="sec" id="expenses-list"><div class="empty"><div class="empty-icon">💰</div><div class="empty-t">لا توجد مصروفات</div></div></div>
+</div>
+
+<!-- CHECKLIST -->
+<div id="tab-checklist" class="panel">
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px">قائمة المهام ✅</div>
+  <div class="sec" id="checklist-content"></div>
+</div>
+
+<!-- HEALTH -->
+<div id="tab-health" class="panel">
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px">الحالة الصحية 🏥</div>
+
+  <!-- First Aid Reminder -->
+  <div style="background:linear-gradient(135deg,#dc2626,#ef4444);border-radius:14px;padding:14px;color:#fff;margin-bottom:14px">
+    <div style="font-size:14px;font-weight:700;margin-bottom:6px">🧰 حقيبة الإسعافات معك؟</div>
+    <div style="font-size:12px;opacity:.9;line-height:1.7">ضمادات · مسكن ألم · دواء إسهال · مطهر جروح · دواء غثيان · أقراص حساسية · جهاز ضغط</div>
+  </div>
+
+  <!-- Health Alerts -->
+  <div id="health-alerts"></div>
+
+  <!-- Travelers Health List -->
+  <div class="sec">
+    <div class="sec-hdr"><div class="sec-t">ملفات صحية المسافرين</div></div>
+    <div id="health-list"></div>
+  </div>
+</div>
+
+<!-- CURRENCY -->
+<div id="tab-currency" class="panel">
+  <div style="font-size:16px;font-weight:700;margin-bottom:12px">حاسبة العملات 💱</div>
+  <div class="curr-card">
+    <div style="font-size:12px;opacity:.8;margin-bottom:6px">أدخل المبلغ بالريال السعودي</div>
+    <input class="curr-inp" type="number" id="curr-amount" placeholder="100" oninput="calcCurr()">
+    <div class="curr-btns" id="curr-btns">
+      <button class="curr-btn active" onclick="setCurr(this,'TRY',9.8,'₺','ليرة تركية')">🇹🇷 ليرة</button>
+      <button class="curr-btn" onclick="setCurr(this,'USD',0.267,'$','دولار')">🇺🇸 دولار</button>
+      <button class="curr-btn" onclick="setCurr(this,'EUR',0.233,'€','يورو')">🇪🇺 يورو</button>
+      <button class="curr-btn" onclick="setCurr(this,'RUB',24.5,'₽','روبل')">🇷🇺 روبل</button>
+      <button class="curr-btn" onclick="setCurr(this,'JOD',0.189,'د.أ','دينار')">🇯🇴 دينار</button>
+      <button class="curr-btn" onclick="setCurr(this,'GBP',0.210,'£','جنيه')">🇬🇧 جنيه</button>
+      <button class="curr-btn" onclick="setCurr(this,'EGP',14.0,'ج.م','جنيه مصري')">🇪🇬 مصري</button>
+    </div>
+  </div>
+  <div class="sec curr-result-box">
+    <div style="font-size:13px;color:var(--gray);margin-bottom:6px" id="curr-lbl">100 ريال =</div>
+    <div class="curr-result" id="curr-res">9.80 ₺</div>
+    <div style="font-size:11px;color:var(--gray);margin-top:6px">* سعر تقريبي للاسترشاد</div>
+  </div>
+  <div class="sec">
+    <div class="sec-t" style="margin-bottom:10px">تحويلات سريعة</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="quick-conv"></div>
+  </div>
+</div>
+
+<!-- NUMBERS -->
+<div id="tab-numbers" class="panel">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+    <div style="font-size:16px;font-weight:700">أرقام مهمة 📞</div>
+    <button class="btn btn-pr" onclick="openModal('modal-number')">➕ إضافة</button>
+  </div>
+  <div id="numbers-list"><div class="empty sec"><div class="empty-icon">📞</div><div class="empty-t">لا توجد أرقام</div><div class="empty-s">أضف أرقام السفارة والفندق والمرشد</div></div></div>
+</div>
+
+</div><!-- end main -->
+</div><!-- end layout -->
+
+<!-- MOBILE NAV -->
+<div class="mob-nav">
+  <button class="mn-i active" onclick="showTab('overview',this,true)"><i class="ti ti-dashboard"></i><span>الرئيسية</span></button>
+  <button class="mn-i" onclick="showTab('travelers',this,true)"><i class="ti ti-users"></i><span>المسافرون</span></button>
+  <button class="mn-i" onclick="showTab('messages',this,true)"><i class="ti ti-message"></i><span>رسائل</span></button>
+  <button class="mn-i" onclick="showTab('report',this,true)"><i class="ti ti-report"></i><span>تقرير</span></button>
+  <button class="mn-i" onclick="showTab('currency',this,true)"><i class="ti ti-currency"></i><span>عملات</span></button>
+</div>
+
+</div><!-- end app -->
+
+<script>
+// ===== DATA LAYER =====
+var currentUser = null;
+var PASS = 'alam2026';
+var ADMIN_USER = 'admin_moha';
+var ADMIN_PASS = 'Moha@2026#admin';
+
+function getKey(k){ return currentUser+'_'+k; }
+function save(k,v){ localStorage.setItem(getKey(k), JSON.stringify(v)); }
+function load(k,def){ var v=localStorage.getItem(getKey(k)); return v?JSON.parse(v):def; }
+
+// ===== LOGIN =====
+function doLogin(){
+  var u=document.getElementById('login-user').value.trim();
+  var p=document.getElementById('login-pass').value.trim();
+  var err=document.getElementById('login-err');
+  if(!u){err.style.display='block';err.textContent='⚠️ أدخل اسمك';return;}
+  // Admin login
+  if(u===ADMIN_USER && p===ADMIN_PASS){
+    currentUser=ADMIN_USER;
+    err.style.display='none';
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('admin-panel').style.display='flex';
+    renderAdminPanel();
+    return;
+  }
+  // Leader login
+  if(p===PASS){
+    currentUser=u;
+    err.style.display='none';
+    document.getElementById('login-page').style.display='none';
+    document.getElementById('app').classList.add('show');
+    document.getElementById('hdr-user').textContent=u;
+    initApp();
+  } else {
+    err.style.display='block';
+    err.textContent='❌ كلمة المرور غير صحيحة';
+  }
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Enter'&&!currentUser)doLogin();
+});
+function doLogout(){
+  if(!confirm('هل تريد تسجيل الخروج؟'))return;
+  currentUser=null;
+  document.getElementById('app').classList.remove('show');
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+  document.getElementById('login-err').style.display='none';
+}
+function adminLogout(){
+  if(!confirm('هل تريد تسجيل الخروج؟'))return;
+  currentUser=null;
+  document.getElementById('admin-panel').style.display='none';
+  document.getElementById('login-page').style.display='flex';
+  document.getElementById('login-user').value='';
+  document.getElementById('login-pass').value='';
+}
+
+// ===== ADMIN PANEL =====
+function renderAdminPanel(){
+  // Get all localStorage keys to find all leaders
+  var leaders={};
+  for(var i=0;i<localStorage.length;i++){
+    var key=localStorage.key(i);
+    if(key&&key.includes('_trip')){
+      var leaderName=key.replace('_trip','');
+      if(leaderName!==ADMIN_USER){
+        leaders[leaderName]=leaders[leaderName]||{};
+        var trip=JSON.parse(localStorage.getItem(key)||'null');
+        leaders[leaderName].trip=trip;
+      }
+    }
+    if(key&&key.includes('_travelers')){
+      var ln=key.replace('_travelers','');
+      if(ln!==ADMIN_USER){
+        leaders[ln]=leaders[ln]||{};
+        leaders[ln].travelers=JSON.parse(localStorage.getItem(key)||'[]');
+      }
+    }
+    if(key&&key.includes('_expenses')){
+      var ln2=key.replace('_expenses','');
+      if(ln2!==ADMIN_USER){
+        leaders[ln2]=leaders[ln2]||{};
+        leaders[ln2].expenses=JSON.parse(localStorage.getItem(key)||'[]');
+      }
+    }
+  }
+
+  var leaderKeys=Object.keys(leaders);
+  var totalLeaders=leaderKeys.length;
+  var totalTravelers=0;
+  var totalTrips=0;
+  leaderKeys.forEach(function(l){
+    if(leaders[l].trip&&leaders[l].trip.dest)totalTrips++;
+    if(leaders[l].travelers)totalTravelers+=leaders[l].travelers.length;
+  });
+
+  var html=
+    '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px">'+
+    '<div style="background:#fff;border-radius:12px;padding:14px;text-align:center;border:1px solid rgba(242,101,34,.15)"><div style="font-size:24px;margin-bottom:4px">👥</div><div style="font-size:24px;font-weight:800;color:#F26522">'+totalLeaders+'</div><div style="font-size:11px;color:#64748b">ليدر مسجل</div></div>'+
+    '<div style="background:#fff;border-radius:12px;padding:14px;text-align:center;border:1px solid rgba(242,101,34,.15)"><div style="font-size:24px;margin-bottom:4px">✈️</div><div style="font-size:24px;font-weight:800;color:#F26522">'+totalTrips+'</div><div style="font-size:11px;color:#64748b">رحلة نشطة</div></div>'+
+    '<div style="background:#fff;border-radius:12px;padding:14px;text-align:center;border:1px solid rgba(242,101,34,.15)"><div style="font-size:24px;margin-bottom:4px">🧳</div><div style="font-size:24px;font-weight:800;color:#F26522">'+totalTravelers+'</div><div style="font-size:11px;color:#64748b">إجمالي المسافرين</div></div>'+
+    '</div>';
+
+  if(!totalLeaders){
+    html+='<div style="background:#fff;border-radius:14px;padding:30px;text-align:center;color:#64748b"><div style="font-size:40px;margin-bottom:8px">📭</div><div style="font-size:14px;font-weight:600">لا يوجد ليدرز مسجلين بعد</div><div style="font-size:12px;margin-top:4px">انتظر حتى يدخل الليدرز للتطبيق</div></div>';
+  } else {
+    html+='<div style="font-size:14px;font-weight:700;margin-bottom:10px;color:#1a1a1a">تفاصيل كل ليدر 👇</div>';
+    leaderKeys.forEach(function(l){
+      var d=leaders[l];
+      var trip=d.trip;
+      var travCount=d.travelers?d.travelers.length:0;
+      var expTotal=d.expenses?d.expenses.filter(function(e){return e.curr==='ريال';}).reduce(function(s,e){return s+e.amount;},0):0;
+      html+=
+        '<div style="background:#fff;border-radius:12px;padding:14px;margin-bottom:10px;border:1px solid rgba(242,101,34,.15)">'+
+        '<div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">'+
+          '<div style="display:flex;align-items:center;gap:8px">'+
+            '<div style="width:36px;height:36px;border-radius:50%;background:#fff3ed;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;color:#F26522">'+l.charAt(0)+'</div>'+
+            '<div style="font-size:14px;font-weight:700">'+l+'</div>'+
+          '</div>'+
+          (trip&&trip.dest?'<span style="padding:4px 10px;background:#fff3ed;color:#F26522;border-radius:20px;font-size:11px;font-weight:600">✈️ '+trip.dest+'</span>':'<span style="padding:4px 10px;background:#f1f5f9;color:#64748b;border-radius:20px;font-size:11px">لا توجد رحلة</span>')+
+        '</div>'+
+        '<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'+
+          '<div style="background:#f8fafc;border-radius:8px;padding:8px;text-align:center"><div style="font-size:11px;color:#64748b">المسافرون</div><div style="font-size:16px;font-weight:700;color:#F26522">'+travCount+'</div></div>'+
+          '<div style="background:#f8fafc;border-radius:8px;padding:8px;text-align:center"><div style="font-size:11px;color:#64748b">المصروفات</div><div style="font-size:16px;font-weight:700;color:#F26522">'+expTotal+' ر</div></div>'+
+          '<div style="background:#f8fafc;border-radius:8px;padding:8px;text-align:center"><div style="font-size:11px;color:#64748b">الفندق</div><div style="font-size:13px;font-weight:600;color:#1a1a1a">'+(trip&&trip.hotel?trip.hotel.substring(0,10):'--')+'</div></div>'+
+        '</div>'+
+        (trip&&trip.dep?'<div style="margin-top:8px;font-size:11px;color:#64748b">📅 '+trip.dep+(trip.ret?' → '+trip.ret:'')+'</div>':'')+
+      '</div>';
+    });
+  }
+
+  html+='<div style="text-align:center;margin-top:8px"><button onclick="renderAdminPanel()" style="padding:8px 20px;background:#F26522;color:#fff;border:none;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">🔄 تحديث البيانات</button></div>';
+
+  document.getElementById('admin-content').innerHTML=html;
+}
+
+
+function initApp(){
+  renderOverview();
+  renderTravelers();
+  renderSchedule();
+  renderMessages();
+  renderExpenses();
+  renderChecklist();
+  renderNumbers();
+  renderHealth();
+  updateQuickConv();
+  renderHotel();
+  updateReportInfo();
+}
+
+// ===== TRIP =====
+function openTripModal(){
+  var t=load('trip',null);
+  if(t){
+    document.getElementById('tr-dest').value=t.dest||'';
+    document.getElementById('tr-dep').value=t.dep||'';
+    document.getElementById('tr-ret').value=t.ret||'';
+    document.getElementById('tr-flight').value=t.flight||'';
+    document.getElementById('tr-gate').value=t.gate||'';
+    document.getElementById('tr-hotel').value=t.hotel||'';
+    document.getElementById('tr-wifi').value=t.wifi||'';
+    document.getElementById('tr-wifipass').value=t.wifipass||'';
+    document.getElementById('tr-guide').value=t.guide||'';
+    document.getElementById('tr-guidephone').value=t.guidephone||'';
+    document.getElementById('tr-count').value=t.count||'';
+  }
+  openModal('modal-trip');
+}
+function saveTrip(){
+  var dest=document.getElementById('tr-dest').value.trim();
+  if(!dest){showToast('⚠️ أدخل الوجهة');return;}
+  var t={
+    dest:dest,
+    dep:document.getElementById('tr-dep').value,
+    ret:document.getElementById('tr-ret').value,
+    flight:document.getElementById('tr-flight').value,
+    gate:document.getElementById('tr-gate').value,
+    hotel:document.getElementById('tr-hotel').value,
+    wifi:document.getElementById('tr-wifi').value,
+    wifipass:document.getElementById('tr-wifipass').value,
+    guide:document.getElementById('tr-guide').value,
+    guidephone:document.getElementById('tr-guidephone').value,
+    count:document.getElementById('tr-count').value
+  };
+  save('trip',t);
+  closeModal('modal-trip');
+  renderOverview();
+  renderHotel();
+  renderMessages();
+  updateReportInfo();
+  document.getElementById('trip-pill').textContent='✈️ '+dest;
+  showToast('✅ تم حفظ معلومات الرحلة');
+}
+function renderOverview(){
+  var t=load('trip',null);
+  var travelers=load('travelers',[]);
+  var overview=document.getElementById('trip-overview');
+  var noTrip=document.getElementById('no-trip-msg');
+  if(!t||!t.dest){
+    noTrip.style.display='block';
+    overview.innerHTML='';
+    document.getElementById('trip-pill').textContent='➕ أضف رحلة';
+    return;
+  }
+  noTrip.style.display='none';
+  document.getElementById('trip-pill').textContent='✈️ '+t.dest;
+
+  // Passport alerts
+  var alerts='';
+  var today=new Date();
+  travelers.forEach(function(tv){
+    if(!tv.expiry)return;
+    var exp=new Date(tv.expiry);
+    var diff=Math.floor((exp-today)/(1000*60*60*24));
+    if(diff<60){
+      var cls=diff<30?'pass-red':'pass-yellow';
+      var icon=diff<30?'🔴':'🟡';
+      alerts+='<div class="pass-alert '+cls+'">'+icon+' <b>'+tv.name+'</b> - جواز ينتهي خلال '+diff+' يوم</div>';
+    }
+  });
+
+  // Days calc
+  var dep=t.dep?new Date(t.dep):null;
+  var ret=t.ret?new Date(t.ret):null;
+  var days=dep&&ret?Math.floor((ret-dep)/(1000*60*60*24))+' أيام':'--';
+
+  overview.innerHTML=
+    '<div class="trip-hero">'+
+    '<div style="font-size:11px;opacity:.7;margin-bottom:3px">الرحلة الحالية</div>'+
+    '<div class="trip-dest">'+t.dest+'</div>'+
+    '<div class="trip-date">'+(t.dep||'')+(t.ret?' → '+t.ret:'')+(days!='--'?' · '+days:'')+'</div>'+
+    '<div class="trip-tags">'+
+    (t.flight?'<div class="trip-tag gold">✈️ '+t.flight+'</div>':'')+
+    (t.gate?'<div class="trip-tag">🚪 '+t.gate+'</div>':'')+
+    (t.count?'<div class="trip-tag">👥 '+t.count+' مسافر</div>':'')+
+    (t.hotel?'<div class="trip-tag">🏨 '+t.hotel+'</div>':'')+
+    '</div>'+
+    '<div style="margin-top:12px"><button onclick="openTripModal()" style="background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);color:#fff;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit">✏️ تعديل الرحلة</button></div>'+
+    '</div>'+
+    (alerts?'<div class="sec"><div class="sec-t" style="margin-bottom:8px">⚠️ تنبيهات الجوازات</div>'+alerts+'</div>':'')+
+    '<div class="stats-grid">'+
+    '<div class="stat"><div class="stat-i">👥</div><div class="stat-v">'+(t.count||0)+'</div><div class="stat-l">المسافرون</div></div>'+
+    '<div class="stat ok"><div class="stat-i">✅</div><div class="stat-v">'+travelers.length+'</div><div class="stat-l">تم تسجيلهم</div></div>'+
+    '<div class="stat warn"><div class="stat-i">📅</div><div class="stat-v">'+(days!='--'?days.replace(' أيام',''):'--')+'</div><div class="stat-l">أيام الرحلة</div></div>'+
+    '<div class="stat"><div class="stat-i">💰</div><div class="stat-v">'+getTotalExp()+'</div><div class="stat-l">المصروفات</div></div>'+
+    '</div>'+
+    '<div class="sec">'+
+    '<div class="sec-hdr"><div class="sec-t">⚡ إجراءات سريعة</div></div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
+    '<button class="btn btn-pr" style="padding:11px;justify-content:center" onclick="showTab(\'travelers\',null,false)">👥 المسافرون</button>'+
+    '<button class="btn" style="background:#25D366;color:#fff;padding:11px;justify-content:center" onclick="showTab(\'messages\',null,false)">💬 إرسال رسالة</button>'+
+    '<button class="btn btn-light" style="padding:11px;justify-content:center" onclick="showTab(\'report\',null,false)">📝 التقرير</button>'+
+    '<button class="btn btn-light" style="padding:11px;justify-content:center" onclick="showTab(\'schedule\',null,false)">📅 الجدول</button>'+
+    '</div></div>';
+}
+
+// ===== TRAVELERS =====
+var editTravelerIdx=-1;
+function openAddTraveler(){
+  editTravelerIdx=-1;
+  document.getElementById('trav-modal-title').textContent='👤 إضافة مسافر';
+  ['tv-name','tv-phone','tv-passport','tv-room','tv-notes'].forEach(function(id){document.getElementById(id).value='';});
+  document.getElementById('tv-gender').value='m';
+  document.getElementById('tv-expiry').value='';
+  document.getElementById('tv-occasion').value='';
+  openModal('modal-traveler');
+}
+function openEditTraveler(i){
+  var travelers=load('travelers',[]);
+  var tv=travelers[i];
+  editTravelerIdx=i;
+  document.getElementById('trav-modal-title').textContent='✏️ تعديل بيانات المسافر';
+  document.getElementById('tv-name').value=tv.name||'';
+  document.getElementById('tv-gender').value=tv.gender||'m';
+  document.getElementById('tv-phone').value=tv.phone||'';
+  document.getElementById('tv-passport').value=tv.passport||'';
+  document.getElementById('tv-expiry').value=tv.expiry||'';
+  document.getElementById('tv-room').value=tv.room||'';
+  document.getElementById('tv-disease').value=tv.disease||'';
+  document.getElementById('tv-allergy').value=tv.allergy||'';
+  document.getElementById('tv-meds').value=tv.meds||'';
+  document.getElementById('tv-blood').value=tv.blood||'';
+  openModal('modal-traveler');
+}
+function saveTraveler(){
+  var name=document.getElementById('tv-name').value.trim();
+  if(!name){showToast('⚠️ أدخل اسم المسافر');return;}
+  var tv={
+    name:name,gender:document.getElementById('tv-gender').value,
+    phone:document.getElementById('tv-phone').value,
+    passport:document.getElementById('tv-passport').value,
+    expiry:document.getElementById('tv-expiry').value,
+    room:document.getElementById('tv-room').value,
+    occasion:document.getElementById('tv-occasion').value,
+    notes:document.getElementById('tv-notes').value,
+    disease:document.getElementById('tv-disease').value,
+    allergy:document.getElementById('tv-allergy').value,
+    meds:document.getElementById('tv-meds').value,
+    blood:document.getElementById('tv-blood').value,
+    id:Date.now()
+  };
+  var travelers=load('travelers',[]);
+  if(editTravelerIdx>=0){travelers[editTravelerIdx]=tv;}
+  else{travelers.push(tv);}
+  save('travelers',travelers);
+  renderTravelers();
+  renderOverview();
+  renderHealth();
+  closeModal('modal-traveler');
+  showToast(editTravelerIdx>=0?'✅ تم تحديث بيانات المسافر':'✅ تم إضافة المسافر');
+}
+function deleteTraveler(i){
+  if(!confirm('هل تريد حذف هذا المسافر؟'))return;
+  var travelers=load('travelers',[]);
+  travelers.splice(i,1);
+  save('travelers',travelers);
+  renderTravelers();
+  renderOverview();
+  showToast('🗑️ تم حذف المسافر');
+}
+function filterTravelers(v){renderTravelers(v);}
+function renderTravelers(filter){
+  var travelers=load('travelers',[]);
+  var list=document.getElementById('travelers-list');
+  if(!filter)filter='';
+  var filtered=travelers.filter(function(t){
+    return t.name.includes(filter)||( t.passport&&t.passport.includes(filter));
+  });
+  if(!filtered.length){
+    list.innerHTML='<div class="empty"><div class="empty-icon">👥</div><div class="empty-t">'+(filter?'لا نتائج':'لا يوجد مسافرون')+'</div></div>';
+    return;
+  }
+  var today=new Date();
+  var html='';
+  filtered.forEach(function(tv,i){
+    var realIdx=travelers.indexOf(tv);
+    var av=tv.name.charAt(0);
+    var avCls=tv.gender==='f'?'av-f':'av-m';
+    var passStatus='';
+    if(tv.expiry){
+      var exp=new Date(tv.expiry);
+      var diff=Math.floor((exp-today)/(1000*60*60*24));
+      passStatus=diff<30?'<span class="badge b-bad">⚠️ '+diff+' يوم</span>':diff<180?'<span class="badge b-warn">'+diff+' يوم</span>':'<span class="badge b-ok">✅ سارية</span>';
+    }
+    var ocBadge=tv.occasion==='honeymoon'?'<span class="badge b-pink">💑</span>':tv.occasion==='birthday'?'<span class="badge b-warn">🎂</span>':tv.occasion==='anniversary'?'<span class="badge b-blue">💍</span>':'';
+    html+='<div class="trav-row">'+
+      '<div class="trav-av '+avCls+'">'+av+'</div>'+
+      '<div style="flex:1">'+
+        '<div class="trav-name">'+tv.name+' '+ocBadge+'</div>'+
+        '<div class="trav-det">'+(tv.phone||'')+(tv.room?' · غرفة '+tv.room:'')+(tv.passport?' · '+tv.passport:'')+'</div>'+
+      '</div>'+
+      passStatus+
+      '<div style="display:flex;gap:4px;margin-right:6px">'+
+        '<button class="btn btn-light btn-sm" onclick="openEditTraveler('+realIdx+')">✏️</button>'+
+        '<button class="btn btn-sm" style="background:#fee2e2;color:var(--bad)" onclick="deleteTraveler('+realIdx+')">🗑️</button>'+
+      '</div>'+
+    '</div>';
+  });
+  list.innerHTML=html;
+}
+
+// ===== SCHEDULE =====
+function saveSchedule(){
+  var date=document.getElementById('sc-date').value;
+  var title=document.getElementById('sc-title').value.trim();
+  if(!date||!title){showToast('⚠️ أدخل التاريخ والنشاط');return;}
+  var items=load('schedule',[]);
+  items.push({date:date,time:document.getElementById('sc-time').value,title:title,detail:document.getElementById('sc-detail').value,type:document.getElementById('sc-type').value});
+  items.sort(function(a,b){return (a.date+a.time)>(b.date+b.time)?1:-1;});
+  save('schedule',items);
+  ['sc-date','sc-time','sc-title','sc-detail'].forEach(function(id){document.getElementById(id).value='';});
+  renderSchedule();
+  closeModal('modal-schedule');
+  showToast('✅ تم إضافة النشاط');
+}
+function deleteSchedule(i){
+  var items=load('schedule',[]);
+  items.splice(i,1);
+  save('schedule',items);
+  renderSchedule();
+  showToast('🗑️ تم حذف النشاط');
+}
+function renderSchedule(){
+  var items=load('schedule',[]);
+  var el=document.getElementById('schedule-list');
+  if(!items.length){el.innerHTML='<div class="empty sec"><div class="empty-icon">📅</div><div class="empty-t">لا يوجد جدول</div><div class="empty-s">ابدأ بإضافة أنشطة الرحلة</div></div>';return;}
+  var days={};
+  items.forEach(function(item,i){days[item.date]=days[item.date]||[];days[item.date].push({item:item,idx:i});});
+  var dotMap={tour:'dot-t',meal:'dot-m',transport:'dot-tr',free:'dot-f'};
+  var html='';
+  Object.keys(days).forEach(function(date){
+    html+='<div class="day-card"><div class="day-hdr"><div style="font-size:13px;font-weight:700">📅 '+date+'</div></div><div class="day-body">';
+    days[date].forEach(function(d){
+      var dot=dotMap[d.item.type]||'dot-f';
+      html+='<div class="sched-item">'+
+        '<div class="sched-time">'+(d.item.time||'--')+'</div>'+
+        '<div class="sched-dot '+dot+'"></div>'+
+        '<div style="flex:1"><div class="sched-main">'+d.item.title+'</div>'+(d.item.detail?'<div class="sched-sub">'+d.item.detail+'</div>':'')+'</div>'+
+        '<button class="btn btn-sm" style="background:#fee2e2;color:var(--bad)" onclick="deleteSchedule('+d.idx+')">🗑️</button>'+
+      '</div>';
+    });
+    html+='</div></div>';
+  });
+  el.innerHTML=html;
+}
+
+// ===== MESSAGES =====
+function renderMessages(){
+  var t=load('trip',null);
+  var dest=t?t.dest:'الوجهة';
+  var msgs=[
+    {title:'🚌 تنبيه تحرك الحافلة',text:'تنبيه عزيزي المسافر 🚌\nالحافلة ستتحرك بعد 20 دقيقة\nالرجاء التواجد أمام الفندق\nوكالة العالم للسفر والسياحة ✈️'},
+    {title:'✈️ تذكير المطار',text:'تنبيه مهم ✈️\nموعد التجمع في المطار غداً الساعة 6:00 صباحاً\nالبوابة: '+(t&&t.gate?t.gate:'--')+' · رقم الرحلة: '+(t&&t.flight?t.flight:'--')+'\nيرجى إحضار الجواز والتذكرة\nوكالة العالم للسفر والسياحة 🌍'},
+    {title:'🗺️ تنبيه موعد الجولة',text:'تنبيه الجولة السياحية 🗺️\nموعد التجمع: الساعة 9:00 صباحاً\nالمكان: أمام مدخل الفندق\nوكالة العالم للسفر والسياحة ✈️'},
+    {title:'📋 تعليمات ما قبل السفر',text:'أهلاً وسهلاً بكم في رحلة '+dest+' 🌍\n✅ تأكدوا من صلاحية الجواز\n✅ حمّلوا eSIM للاتصال بالخارج\n✅ تحققوا من وزن الحقيبة (23 كيلو)\nوكالة العالم للسفر والسياحة ✈️'},
+    {title:'🌙 نهاية اليوم',text:'مساء الخير جميعاً 🌙\nنهاية يوم رائع في '+dest+'\nسنرسل برنامج الغد قريباً\nتصبحون على خير 🤍\nوكالة العالم للسفر والسياحة'},
+  ];
+  var html='<div style="font-size:13px;font-weight:700;margin-bottom:8px;color:#666">رسائل جاهزة ⚡</div>';
+  msgs.forEach(function(m,i){
+    html+='<div class="msg-card">'+
+      '<div class="msg-title">'+m.title+'</div>'+
+      '<div class="msg-text" id="msg-'+i+'">'+m.text+'</div>'+
+      '<div class="msg-btns">'+
+        '<button style="padding:6px 12px;background:var(--pr);color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit" onclick="copyEl(\'msg-'+i+'\')">📋 نسخ</button>'+
+        '<button style="padding:6px 12px;background:#25D366;color:#fff;border:none;border-radius:8px;font-size:11px;font-weight:600;cursor:pointer;font-family:inherit" onclick="openWAEl(\'msg-'+i+'\')">📲 واتساب</button>'+
+      '</div>'+
+    '</div>';
+  });
+  document.getElementById('msg-list').innerHTML=html;
+}
+function copyEl(id){
+  var txt=document.getElementById(id).textContent;
+  if(navigator.clipboard)navigator.clipboard.writeText(txt);
+  showToast('✅ تم نسخ الرسالة 📋');
+}
+function openWAEl(id){
+  var txt=document.getElementById(id).textContent;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+function copyText(id,isTA){
+  var el=document.getElementById(id);
+  var txt=isTA?el.value:el.textContent;
+  if(navigator.clipboard)navigator.clipboard.writeText(txt);
+  showToast('✅ تم النسخ 📋');
+}
+function openWA(id,isTA){
+  var el=document.getElementById(id);
+  var txt=isTA?el.value:el.textContent;
+  window.open('https://wa.me/?text='+encodeURIComponent(txt),'_blank');
+}
+
+// ===== REPORT =====
+function updateReportInfo(){
+  var t=load('trip',null);
+  var el=document.getElementById('report-trip-info');
+  if(t&&t.dest){el.textContent='✈️ '+t.dest+' · '+(t.dep||'')+(t.ret?' → '+t.ret:'');}
+  else{el.textContent='لا توجد رحلة محددة';}
+}
+function generateReport(){
+  var t=load('trip',null);
+  var r='📊 تقرير اليوم - وكالة العالم للسفر\n';
+  r+='📅 '+new Date().toLocaleDateString('ar-SA')+'\n';
+  if(t)r+='✈️ '+t.dest+'\n';
+  r+='\n🗺️ ملخص اليوم:\n'+(document.getElementById('r-summary').value||'-')+'\n';
+  r+='\n👥 حالة المسافرين:\n'+(document.getElementById('r-travelers').value||'-')+'\n';
+  r+='\n⚠️ مشاكل وشكاوى:\n'+(document.getElementById('r-issues').value||'لا يوجد')+'\n';
+  r+='\n🏨 ملاحظات الفندق:\n'+(document.getElementById('r-hotel').value||'-')+'\n';
+  r+='\n🗺️ ملاحظات المرشد:\n'+(document.getElementById('r-guide-notes').value||'-')+'\n';
+  r+='\n📅 برنامج الغد:\n'+(document.getElementById('r-tomorrow').value||'-')+'\n';
+  r+='\n'+currentUser+' - Group Leader\nوكالة العالم للسفر والسياحة ✈️';
+  if(navigator.clipboard)navigator.clipboard.writeText(r);
+  showToast('✅ تم نسخ التقرير كاملاً 📋');
+}
+function sendReport(){
+  var t=load('trip',null);
+  var r='📊 تقرير اليوم\n📅 '+new Date().toLocaleDateString('ar-SA')+'\n';
+  if(t)r+='✈️ '+t.dest+'\n\n';
+  r+=document.getElementById('r-summary').value||'-';
+  r+='\n\n'+currentUser+' - Group Leader ✈️';
+  window.open('https://wa.me/?text='+encodeURIComponent(r),'_blank');
+}
+
+// ===== HOTEL =====
+function renderHotel(){
+  var t=load('trip',null);
+  var el=document.getElementById('hotel-info');
+  if(!t||!t.hotel){el.innerHTML='<div class="empty"><div class="empty-icon">🏨</div><div class="empty-t">لا توجد معلومات فندق</div><div class="empty-s">أضف معلومات الرحلة أولاً</div></div>';return;}
+  el.innerHTML=
+    '<div class="sec-t" style="margin-bottom:12px">🏨 '+t.hotel+'</div>'+
+    '<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+
+    item('📞 رقم الفندق',t.hotelphone||'غير محدد')+
+    item('📶 واي فاي',t.wifi||'غير محدد')+
+    item('🔑 كلمة المرور',t.wifipass||'غير محدد')+
+    item('🗺️ المرشد',t.guide||'غير محدد')+
+    item('📱 رقم المرشد',t.guidephone||'غير محدد')+
+    '</div>';
+}
+function item(lbl,val){return '<div style="background:var(--light);border-radius:10px;padding:10px"><div style="font-size:11px;color:var(--gray);margin-bottom:3px">'+lbl+'</div><div style="font-size:13px;font-weight:700;color:#1a1a1a">'+val+'</div></div>';}
+
+// ===== EXPENSES =====
+function saveExpense(){
+  var name=document.getElementById('ex-name').value.trim();
+  var amount=document.getElementById('ex-amount').value;
+  if(!name||!amount){showToast('⚠️ أدخل الوصف والمبلغ');return;}
+  var exps=load('expenses',[]);
+  exps.push({name:name,amount:parseFloat(amount),curr:document.getElementById('ex-curr').value,cat:document.getElementById('ex-cat').value,date:new Date().toLocaleDateString('ar-SA')});
+  save('expenses',exps);
+  renderExpenses();
+  closeModal('modal-expense');
+  document.getElementById('ex-name').value='';document.getElementById('ex-amount').value='';
+  showToast('✅ تم تسجيل المصروف');
+}
+function deleteExpense(i){
+  var exps=load('expenses',[]);exps.splice(i,1);save('expenses',exps);renderExpenses();showToast('🗑️ تم حذف المصروف');
+}
+function getTotalExp(){
+  var exps=load('expenses',[]);
+  return exps.filter(function(e){return e.curr==='ريال';}).reduce(function(s,e){return s+e.amount;},0);
+}
+function renderExpenses(){
+  var exps=load('expenses',[]);
+  var mealT=0,transT=0,total=0;
+  var html='';
+  exps.forEach(function(e,i){
+    if(e.curr==='ريال'){total+=e.amount;if(e.cat.includes('وجبات'))mealT+=e.amount;if(e.cat.includes('مواصلات'))transT+=e.amount;}
+    html+='<div class="exp-row">'+
+      '<div><div style="font-size:13px;font-weight:600">'+e.name+'</div><div style="font-size:11px;color:var(--gray)">'+e.cat+' · '+e.date+'</div></div>'+
+      '<div style="display:flex;align-items:center;gap:8px">'+
+        '<div style="font-size:14px;font-weight:700;color:var(--pr)">'+e.amount+' '+e.curr+'</div>'+
+        '<button class="exp-del" onclick="deleteExpense('+i+')">🗑️</button>'+
+      '</div></div>';
+  });
+  document.getElementById('exp-total').textContent=total;
+  document.getElementById('exp-meals').textContent=mealT;
+  document.getElementById('exp-trans').textContent=transT;
+  document.getElementById('expenses-list').innerHTML=exps.length?html:'<div class="empty"><div class="empty-icon">💰</div><div class="empty-t">لا توجد مصروفات</div></div>';
+}
+
+// ===== CHECKLIST =====
+var defaultChecks=[
+  {text:'التأكد من جوازات سفر جميع المسافرين',phase:'قبل السفر',done:false},
+  {text:'إرسال تعليمات ما قبل السفر',phase:'قبل السفر',done:false},
+  {text:'التأكد من حجوزات الفندق',phase:'قبل السفر',done:false},
+  {text:'التواصل مع المرشد وتأكيد الجدول',phase:'قبل السفر',done:false},
+  {text:'تسجيل جميع التذاكر في المطار',phase:'المطار',done:false},
+  {text:'التأكد من عدد الحقائب',phase:'المطار',done:false},
+  {text:'إرسال تنبيه البوابة للمسافرين',phase:'المطار',done:false},
+  {text:'إرسال تقرير اليوم للرئيس',phase:'أثناء الرحلة',done:false},
+  {text:'التأكد من رضا المسافرين',phase:'أثناء الرحلة',done:false},
+  {text:'تنسيق مواعيد الجولات مع المرشد',phase:'أثناء الرحلة',done:false},
+];
+function renderChecklist(){
+  var checks=load('checks',defaultChecks);
+  var phases={};
+  checks.forEach(function(c,i){phases[c.phase]=phases[c.phase]||[];phases[c.phase].push({c:c,i:i});});
+  var html='';
+  Object.keys(phases).forEach(function(phase){
+    var done=phases[phase].filter(function(x){return x.c.done;}).length;
+    html+='<div style="margin-bottom:14px"><div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:6px"><div style="font-size:13px;font-weight:700;color:var(--pr)">'+phase+'</div><span class="badge '+(done===phases[phase].length?'b-ok':'b-orange')+'">'+done+'/'+phases[phase].length+'</span></div>';
+    phases[phase].forEach(function(d){
+      html+='<div class="check-item">'+
+        '<div class="check-cb '+(d.c.done?'done':'')+'" onclick="toggleCheck('+d.i+')">'+(d.c.done?'✓':'')+'</div>'+
+        '<div class="check-text '+(d.c.done?'done':'')+'">'+d.c.text+'</div>'+
+      '</div>';
+    });
+    html+='</div>';
+  });
+  document.getElementById('checklist-content').innerHTML=html;
+}
+function toggleCheck(i){
+  var checks=load('checks',defaultChecks);
+  checks[i].done=!checks[i].done;
+  save('checks',checks);
+  renderChecklist();
+}
+
+// ===== CURRENCY =====
+var currRate=9.8,currSym='₺',currName='ليرة تركية';
+function setCurr(btn,code,rate,sym,name){
+  currRate=rate;currSym=sym;currName=name;
+  document.querySelectorAll('.curr-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  calcCurr();updateQuickConv();
+}
+function calcCurr(){
+  var a=parseFloat(document.getElementById('curr-amount').value)||0;
+  var r=(a*currRate).toFixed(2);
+  document.getElementById('curr-res').textContent=r+' '+currSym;
+  document.getElementById('curr-lbl').textContent=a+' ريال =';
+}
+function updateQuickConv(){
+  var html='';
+  [10,50,100,200,500,1000].forEach(function(v){
+    html+='<div style="background:var(--light);border-radius:10px;padding:10px;text-align:center"><div style="font-size:11px;color:var(--gray)">'+v+' ريال</div><div style="font-size:14px;font-weight:700;color:var(--pr)">'+(v*currRate).toFixed(1)+' '+currSym+'</div></div>';
+  });
+  document.getElementById('quick-conv').innerHTML=html;
+}
+
+// ===== NUMBERS =====
+function saveNumber(){
+  var name=document.getElementById('nm-name').value.trim();
+  var phone=document.getElementById('nm-phone').value.trim();
+  if(!name||!phone){showToast('⚠️ أدخل الاسم والرقم');return;}
+  var nums=load('numbers',[]);
+  nums.push({name:name,phone:phone,icon:document.getElementById('nm-icon').value});
+  save('numbers',nums);
+  renderNumbers();
+  closeModal('modal-number');
+  document.getElementById('nm-name').value='';document.getElementById('nm-phone').value='';
+  showToast('✅ تم إضافة الرقم');
+}
+function deleteNumber(i){
+  var nums=load('numbers',[]);nums.splice(i,1);save('numbers',nums);renderNumbers();showToast('🗑️ تم الحذف');
+}
+function renderNumbers(){
+  var nums=load('numbers',[]);
+  var el=document.getElementById('numbers-list');
+  if(!nums.length){el.innerHTML='<div class="empty sec"><div class="empty-icon">📞</div><div class="empty-t">لا توجد أرقام</div><div class="empty-s">أضف أرقام السفارة والفندق والمرشد</div></div>';return;}
+  var html='<div class="sec">';
+  nums.forEach(function(n,i){
+    html+='<div class="num-card">'+
+      '<div class="num-icon" style="background:var(--light)">'+n.icon.split(' ')[0]+'</div>'+
+      '<div><div class="num-name">'+n.name+'</div><div class="num-val">'+n.phone+'</div></div>'+
+      '<button class="num-call" onclick="showToast(\'جاري الاتصال...\')">📞 اتصل</button>'+
+      '<button class="btn btn-sm" style="background:#fee2e2;color:var(--bad)" onclick="deleteNumber('+i+')">🗑️</button>'+
+    '</div>';
+  });
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+// ===== NAV =====
+function showTab(name,el,isMob){
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('active');});
+  document.getElementById('tab-'+name).classList.add('active');
+  if(isMob){document.querySelectorAll('.mn-i').forEach(function(b){b.classList.remove('active');});if(el)el.classList.add('active');}
+  else{document.querySelectorAll('.nav-lnk').forEach(function(b){b.classList.remove('active');});if(el)el.classList.add('active');}
+}
+
+// ===== MODAL =====
+function openModal(id){document.getElementById(id).classList.add('open');}
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+
+// ===== HEALTH =====
+function renderHealth(){
+  var travelers=load('travelers',[]);
+  var alerts='';
+  var list='';
+  travelers.forEach(function(tv){
+    var hasHealth=tv.disease||tv.allergy||tv.meds||tv.blood;
+    if(tv.allergy){
+      alerts+='<div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:10px;padding:10px 12px;margin-bottom:8px;display:flex;gap:8px;align-items:center">'+
+        '<span style="font-size:20px">⚠️</span>'+
+        '<div><div style="font-size:13px;font-weight:700;color:var(--bad)">'+tv.name+'</div>'+
+        '<div style="font-size:12px;color:var(--bad)">حساسية: '+tv.allergy+'</div></div></div>';
+    }
+    list+='<div style="padding:12px 0;border-bottom:1px solid var(--border)">'+
+      '<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">'+
+        '<div class="trav-av '+(tv.gender==='f'?'av-f':'av-m')+'" style="width:30px;height:30px;font-size:12px">'+tv.name.charAt(0)+'</div>'+
+        '<div style="font-size:13px;font-weight:700">'+tv.name+'</div>'+
+        (tv.blood?'<span class="badge b-bad">'+tv.blood+'</span>':'')+
+      '</div>'+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+
+        (tv.disease?'<div style="background:#fff3ed;border-radius:8px;padding:7px"><div style="color:var(--gray);font-size:10px">أمراض مزمنة</div><div style="font-size:12px;font-weight:600">'+tv.disease+'</div></div>':'')+
+        (tv.allergy?'<div style="background:#fee2e2;border-radius:8px;padding:7px"><div style="color:var(--gray);font-size:10px">حساسية أدوية</div><div style="font-size:12px;font-weight:600;color:var(--bad)">'+tv.allergy+'</div></div>':'')+
+        (tv.meds?'<div style="background:#f0fdf4;border-radius:8px;padding:7px"><div style="color:var(--gray);font-size:10px">أدوية</div><div style="font-size:12px;font-weight:600">'+tv.meds+'</div></div>':'')+
+        (!hasHealth?'<div style="color:var(--gray);font-size:12px">لا توجد ملاحظات صحية</div>':'')+
+      '</div></div>';
+  });
+  var alertEl=document.getElementById('health-alerts');
+  var listEl=document.getElementById('health-list');
+  if(alertEl)alertEl.innerHTML=alerts?'<div class="sec" style="margin-bottom:12px"><div class="sec-t" style="margin-bottom:8px;color:var(--bad)">⚠️ تنبيهات الحساسية</div>'+alerts+'</div>':'';
+  if(listEl)listEl.innerHTML=travelers.length?list:'<div class="empty"><div class="empty-icon">🏥</div><div class="empty-t">لا يوجد مسافرون</div></div>';
+}
+
+// ===== TOAST =====
+function showToast(msg){var t=document.getElementById('toast');t.textContent=msg;t.className='toast show';setTimeout(function(){t.className='toast';},3000);}
+</script>
+</body>
+</html>
